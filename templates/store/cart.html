@@ -1,0 +1,56 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="minus-icon" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" clip-rule="evenodd" <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/></path>
+      </symbol>
+      <symbol id="plus-icon" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" clip-rule="evenodd" <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/></path>
+      </symbol>
+    </svg>
+    <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <th>
+            <a  style="float:right; margin:5px;" class="btn btn-lg btn-warning" href="{% url 'store-page' %}">&#128220; Back To Product List &#128220;</a>
+					</th>
+    {% for item in items %}
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="{{item.product.imageURL}}" alt="twbs" width="260" height="260" class="rounded-circle flex-shrink-0">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">price for items :${{item.get_total|floatformat:2}}</h1>
+        <p class="lead">{{item.product.name}} <br><br>item quantity : {{item.quantity}} * ${{item.product.price|floatformat:2}}</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a><svg class="chg-quantity update-cart" data-product="{{ item.product.id }}" width="24" height="24" data-action="remove" ><use xlink:href="#minus-icon"> </use></svg></a>
+            <a><svg class="chg-quantity update-cart" data-product="{{ item.product.id }}" width="24" height="24" data-action="add" ><use xlink:href="#plus-icon"> </use></svg></a>
+        </div>
+      </div>
+      {% endfor %}
+
+    <br>
+            <br>
+            <table class="table">
+					<tr>
+						<th><h5 class="mx-auto">Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+						<th><h5 class="mx-auto">Total:<strong> ${{order.get_cart_total|floatformat:2}}</strong></h5></th>
+					</tr>
+				</table>
+                <th>
+            <a  style="float:right; margin:5px;" class="btn btn-lg btn-warning" href="{% url 'checkout' %}">&#128220; Go To Payment Method &#128220;</a>
+					</th>
+		</div>
+
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock content %}
